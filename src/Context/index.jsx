@@ -2,35 +2,33 @@ import { createContext, useState, useEffect } from 'react'
 
 export const ShoppingCartContext = createContext()
 
-
 export const initialLocalStorage = () => {
-  const accountInLocalStorage = localStorage.getItem('account');
-  const signOutInLocalStorage = localStorage.getItem('sign-out');
+  const accountInLocalStorage = localStorage.getItem('account')
+  const signOutInLocalStorage = localStorage.getItem('sign-out')
   let parsedAccount
-  let persedSignOut
+  let parsedSignOut
 
-  if( !accountInLocalStorage ){
+  if (!accountInLocalStorage) {
     localStorage.setItem('account', JSON.stringify({}))
     parsedAccount = {}
   } else {
-    parsedAccount = JSON.parse(accountInLocalStorage);
+    parsedAccount = JSON.parse(accountInLocalStorage)
   }
 
-  if( !signOutInLocalStorage ){
-    localStorage.setItem('sign-out', JSON.stringify({}))
-    parsedSignOut = {}
+  if (!signOutInLocalStorage) {
+    localStorage.setItem('sign-out', JSON.stringify(false))
+    parsedSignOut = false
   } else {
-    parsedSignOut = JSON.parse(signOutInLocalStorage);
+    parsedSignOut = JSON.parse(signOutInLocalStorage)
   }
-  
 }
 
 export const ShoppingCartProvider = ({children}) => {
   // My account
-  const [account, setAccount] = useState({});
+  const [account, setAccount] = useState({})
 
-  //Sign out
-  const [signOut, setSignOut] =useState(false);
+  // Sign out
+  const [signOut, setSignOut] = useState(false)
 
   // Shopping Cart · Increment quantity
   const [count, setCount] = useState(0)
@@ -126,13 +124,12 @@ export const ShoppingCartProvider = ({children}) => {
       filteredItems,
       searchByCategory,
       setSearchByCategory,
-      account, 
+      account,
       setAccount,
-      signOut, 
+      signOut,
       setSignOut
     }}>
       {children}
     </ShoppingCartContext.Provider>
   )
 }
-
